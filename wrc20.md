@@ -23,8 +23,8 @@ This conversion turns out to be helpful in this particular proof, but we don't w
 TODO: The two `#get` theorems below theorems handle special cases in this proof, but we should be able to use some more general theorems to prove them.
 
 ```k
-    rule (#get(BM, ADDR) +Int (X +Int Y)) modInt 256 => (#get(BM, ADDR) +Int ((X +Int Y) modInt 256)) modInt 256       [simplification]
-    rule (#get(BM, ADDR) +Int X)           >>Int 8   => X >>Int 8 requires X modInt 256 ==Int 0 andBool #isByteMap(BM) [simplification]
+    rule (#get(BM, ADDR) +Int (X +Int Y)) modInt 256 => (#get(BM, ADDR) +Int ((X +Int Y) modInt 256)) modInt 256 [simplification]
+    rule (#get(BM, ADDR) +Int X)           >>Int 8   => X >>Int 8 requires X modInt 256 ==Int 0                  [simplification]
 ```
 
 TODO: The following theorems should be generalized and proven, and moved to the set of general lemmas.
@@ -33,7 +33,7 @@ Perhaps using `requires N ==Int 2 ^Int log2Int(N)`?
 ```k
     rule X *Int 256 >>Int N => (X >>Int (N -Int 8))   requires  N >=Int 8 [simplification]
 
-    rule (#get(BM, IDX) +Int (X <<Int 8)) >>Int N => X >>Int (N -Int 8) requires #isByteMap(BM) andBool N >=Int 8 [simplification]
+    rule (#get(BM, IDX) +Int (X <<Int 8)) >>Int N => X >>Int (N -Int 8) requires N >=Int 8 [simplification]
 
     rule (Y +Int X *Int 256) >>Int N => (Y >>Int N) +Int (X >>Int (N -Int 8))   requires  N >=Int 8 [simplification]
 
